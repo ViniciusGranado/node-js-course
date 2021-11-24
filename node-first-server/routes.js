@@ -1,5 +1,4 @@
 const fs = require('fs');
-const { mainModule } = require('process');
 
 const requestHandler = (req, res) => {
   const url = req.url;
@@ -30,8 +29,6 @@ const requestHandler = (req, res) => {
         return res.end();
       });
     });
-  
-  
   }
   
   res.setHeader('Content-Type', 'text/html');
