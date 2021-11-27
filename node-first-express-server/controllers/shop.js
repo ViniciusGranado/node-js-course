@@ -12,7 +12,11 @@ module.exports.getProducts = (req, res) => {
 
 module.exports.getProduct = (req, res) => {
   const id = req.params.id;
-  console.log(id);
+
+  Product.findById(id, (product) => {
+    console.log(product);
+  })
+
   res.redirect('/');
 };
 
