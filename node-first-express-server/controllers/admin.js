@@ -11,8 +11,10 @@ module.exports.getAddProduct = (req, res) => {
 };
 
 module.exports.postAddProduct = (req, res) => {
+  console.log(req.body);
   const product = new Product(
     req.body.title,
+    req.body.imageUrl,
     req.body.price,
     req.body.description
   );

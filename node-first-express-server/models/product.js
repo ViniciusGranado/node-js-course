@@ -18,13 +18,15 @@ const getProductsFromFile = (callback) => {
 };
 
 module.exports = class Product {
-  constructor(title, price, description) {
+  constructor(title, imageUrl, price, description) {
     this.title = title;
+    this.imageUrl = imageUrl;
     this.price = price;
     this.description = description;
   }
 
   save() {
+    this.id = Math.floor((Math.random() * (999 - 111)) + 111).toString();
     getProductsFromFile((products) => {
       products.push(this);
 
