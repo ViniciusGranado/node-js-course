@@ -26,14 +26,14 @@ module.exports = class Product {
   }
 
   save() {
-    this.id = Math.floor((Math.random() * (999 - 111)) + 111).toString();
+    this.id = Math.floor(Math.random() * (999 - 111) + 111).toString();
     getProductsFromFile((products) => {
       products.push(this);
 
       fs.writeFile(p, JSON.stringify(products), (err) => {
         if (err) {
           console.log(err);
-        };
+        }
       });
     });
   }
