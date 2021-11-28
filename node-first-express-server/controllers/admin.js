@@ -68,3 +68,9 @@ module.exports.getProducts = (req, res) => {
     });
   });
 };
+
+module.exports.postDeleteProduct = (req, res) => {
+  Product.deleteById(req.body.id);
+
+  res.redirect('/admin/products');
+}
