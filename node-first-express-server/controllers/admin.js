@@ -1,18 +1,16 @@
 const Product = require('../models/product');
 
 module.exports.getAddProduct = (req, res) => {
-  res.render('admin/add-product', {
+  res.render('admin/edit-product', {
     pageTitle: 'Add Product',
     path: '/admin/add-product',
-    formsCSS: true,
-    productCSS: true,
-    activeProduct: true,
+    editing: false,
   });
 };
 
 module.exports.postAddProduct = (req, res) => {
-  console.log(req.body);
   const product = new Product(
+    null,
     req.body.title,
     req.body.imageUrl,
     req.body.price,
@@ -24,6 +22,43 @@ module.exports.postAddProduct = (req, res) => {
   res.redirect('/');
 };
 
+module.exports.getEditProduct = (req, res) => {
+  const editMode = req.query.edit;
+
+  if (editMode !== 'true') {
+    return res.redirect('/');
+  }
+
+  const id = req.params.id;
+  Product.findById(id, (product) => {
+    if (!product) {
+      return res.redirect('/');
+    }
+
+    res.render('admin/edit-product', {
+      product: product,
+      pageTitle: 'Edit Product',
+      path: '/admin/edit-product',
+      editing: editMode === 'true',
+    });
+  });
+};
+
+module.exports.postEditProduct = (req, res) => {
+  console.log(req.body.id);
+  const updatedProduct = new Product(
+    req.body.id,
+    req.body.title,
+    req.body.imageUrl,
+    req.body.price,
+    req.body.description
+  );
+
+  updatedProduct.save();
+
+  res.redirect(`/admin/products`);
+};
+
 module.exports.getProducts = (req, res) => {
   Product.fetchAll((products) => {
     res.render('admin/products', {
@@ -33,4 +68,3 @@ module.exports.getProducts = (req, res) => {
     });
   });
 };
-
