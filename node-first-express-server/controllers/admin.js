@@ -45,7 +45,6 @@ module.exports.getEditProduct = (req, res) => {
 };
 
 module.exports.postEditProduct = (req, res) => {
-  console.log(req.body.id);
   const updatedProduct = new Product(
     req.body.id,
     req.body.title,
